@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-// Cho phép tạo đối tượng dữ liệu vũ khí trong Unity Editor
+
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Game Data/Weapon")]
 public class WeaponData : ScriptableObject
 {
@@ -13,8 +13,8 @@ public class WeaponData : ScriptableObject
     public int magazineSize = 30;
     public int maxAmmo = 90;
     public float reloadTime = 1.2f;
-    public float bulletSpeed = 15f;      // Tốc độ bay
-    public float bulletLifeTime = 1f;    // Thời gian tồn tại (giây)
+    public float bulletSpeed = 15f;      
+    public float bulletLifeTime = 1f;    
     public int minDamage;
     public int maxDamage;
 

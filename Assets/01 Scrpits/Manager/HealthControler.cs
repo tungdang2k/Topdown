@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static OBjectPoolManager;
+
+
 
 public class HealthControler : MonoBehaviour, ITakeDame
 {

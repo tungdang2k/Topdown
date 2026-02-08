@@ -60,12 +60,11 @@ public class EnemyController : MonoBehaviour
         }
         if (m_KnockBack.gettingKnockBack)
         {
-            // Vô hiệu hóa Agent khi bị đẩy lùi
+
             m_NavMeshAgent.isStopped = true;
             return;
         }
 
-        // Kích hoạt Agent trở lại
         if (m_NavMeshAgent.isStopped)
         {
             m_NavMeshAgent.isStopped = false;

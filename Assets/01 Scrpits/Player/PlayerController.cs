@@ -35,9 +35,6 @@ public class PlayerController : MonoBehaviour
     private const string INPUT_Y_PARAM = "BlendY";
     private const string WALK_PARAM = "walk";
 
-    
-
-
      void Awake()
     {
        
@@ -92,8 +89,6 @@ public class PlayerController : MonoBehaviour
 
         m_actions.Inventory.Keyboard.performed -= Inventory;
 
-        
-
     }
     void Start()
     {
@@ -103,7 +98,6 @@ public class PlayerController : MonoBehaviour
             inventory.RegisterPlayer(this);
         }
 
-        
     }
 
     void Update()
@@ -129,10 +123,10 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimationDirection()
     {
-        // Xác định HƯỚNG MỤC TIÊU cho Blend Tree
+
         Vector2 targetDirectionForAnimation;
 
-        // Lấy hướng từ chuột (vẫn cần để lật và là hướng mặc định khi đứng yên)
+
         Vector2 mouseDirection = Vector2.zero;
         if (m_mainCamera != null)
         {
@@ -146,23 +140,19 @@ public class PlayerController : MonoBehaviour
         // QUYẾT ĐỊNH HƯỚNG CHO ANIMATION:
         if (m_moveInput.sqrMagnitude > 0.05f) // A. Nếu đang di chuyển
         {
-            // Sử dụng hướng di chuyển để điều khiển Blend Tree
             targetDirectionForAnimation = m_moveInput.normalized;
-
-            // Hướng lật vẫn theo m_moveInput (đã xử lý trong Update())
-
         }
         else // B. Nếu đang đứng yên
         {
-            // Sử dụng hướng chuột để điều khiển Blend Tree (cho animation Idle)
+            
             targetDirectionForAnimation = mouseDirection;
           
         }
 
-        // 2. LÀM MƯỢT VÀ CẬP NHẬT ANIMATOR
+
         if (m_animator != null)
         {
-            // SmoothDamp chỉ áp dụng cho targetDirectionForAnimation
+
             m_currentBlendVector.x = Mathf.SmoothDamp(
                 m_currentBlendVector.x,
                 targetDirectionForAnimation.x,
@@ -179,13 +169,13 @@ public class PlayerController : MonoBehaviour
 
             m_animator.SetFloat(INPUT_X_PARAM, m_currentBlendVector.x);
             m_animator.SetFloat(INPUT_Y_PARAM, m_currentBlendVector.y);
-            float inputX = targetDirectionForAnimation.x; // Vẫn dùng giá trị chuột trực tiếp để lật ngay lập tức
+            float inputX = targetDirectionForAnimation.x; 
 
-            if (inputX > 0.05f) // Chuột bên phải
+            if (inputX > 0.05f) 
             {
                 m_spriteRenderer.flipX = false;
             }
-            else if (inputX < -0.05f) // Chuột bên trái
+            else if (inputX < -0.05f) 
             {
                 m_spriteRenderer.flipX = true;
             }
@@ -200,21 +190,21 @@ public class PlayerController : MonoBehaviour
         {
             float inputX = m_moveInput.x;
 
-            if (inputX > 0.05f) // Bấm phím di chuyển Sang Phải
+            if (inputX > 0.05f) 
             {
-                // Không lật (quay mặt sang phải)
+              
                 m_spriteRenderer.flipX = false;
             }
-            else if (inputX < -0.05f) // Bấm phím di chuyển Sang Trái
+            else if (inputX < -0.05f) 
             {
-                // Lật theo trục X (quay mặt sang trái)
+               
                 m_spriteRenderer.flipX = true;
             }
-            // Nếu inputX gần 0 (đang đứng yên hoặc di chuyển dọc), giữ nguyên hướng lật cuối cùng.
+         
         }
         if (m_animator != null)
         {
-            // Tính toán độ lớn (vận tốc) của input di chuyển
+
             float currentSpeed = m_moveInput.magnitude;
 
             m_animator.SetBool(WALK_PARAM, currentSpeed > 0.05f);

@@ -8,7 +8,7 @@ public class HealthBarrCharator : MonoBehaviour
 
     private void Awake()
     {
-        // Tự lấy Health từ Enemy cha
+
         health = GetComponentInParent<HealthControler>();
     }
 

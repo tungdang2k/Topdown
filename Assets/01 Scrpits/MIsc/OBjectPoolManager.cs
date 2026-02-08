@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.Pool;
 public class OBjectPoolManager : MonoBehaviour
 {
-   
-
-
 
     [SerializeField] private bool m_addToDontDestroyOnLoad = false;
 

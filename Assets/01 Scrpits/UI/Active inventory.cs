@@ -116,28 +116,26 @@ public class Activeinventory : MonoBehaviour
 
         WeaponData data = slot.GetWeaponData();
 
-        // Tắt tất cả weapon đã spawn
+
         foreach (var w in spawnedWeapons.Values)
         {
             if (w != null)
                 w.gameObject.SetActive(false);
         }
 
-        // Spawn nếu chưa có
+
         if (!spawnedWeapons.ContainsKey(data))
         {
             GameObject obj = Instantiate(data.weaponPrefab, m_activeWeapon.transform);
 
-            // Lấy weapon gốc (GunWeapon, MeleeWeapon, SkillWeapon...)
             MonoBehaviour weapon = obj.GetComponent<MonoBehaviour>();
             spawnedWeapons.Add(data, weapon);
 
-            // Nếu là súng thì init ammo
             if (weapon is GunWeapon gun)
                 gun.InitializeGun(data);
         }
 
-        // Bật weapon được chọn
+
         MonoBehaviour activeWeapon = spawnedWeapons[data];
         if (activeWeapon == null) return;
 

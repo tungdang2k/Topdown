@@ -38,7 +38,7 @@ public class Sword : MonoBehaviour, IWeapon
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Kiếm mặc định hướng UP → trừ 90 độ
+
         float baseAngle = angle - 90f;
         if (angle > 90f || angle < -90f)
         {

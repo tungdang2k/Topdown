@@ -19,7 +19,7 @@ public class PausePanel : MonoBehaviour
     }
 
     public void OnExitGame()
-    {
+    {   
         Application.Quit();
     }
 }

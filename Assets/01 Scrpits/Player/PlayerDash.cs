@@ -59,26 +59,26 @@ public class PlayerDash : MonoBehaviour
         m_isCooldown = true;
         m_currentCooldown = dashCooldown;
         m_dashCooldownImage.fillAmount = 1f;
-        // 1. Tăng tốc độ trong PlayerController
-        // Lưu ý: PlayerController cần có hàm hoặc biến public để sửa tốc độ
+
+
         float originalSpeed = m_playerController.MoveSpeed;
         m_playerController.MoveSpeed += dashBoost;
 
-        // 2. Bắt đầu hiệu ứng Ghost
+
         if (m_dashCoroutine != null) StopCoroutine(m_dashCoroutine);
         m_dashCoroutine = StartCoroutine(GhostEffectCoroutine());
 
-        // 3. Chờ hết thời gian dash
+
         yield return new WaitForSeconds(dashTime);
 
-        // 4. Kết thúc dash: Trả lại tốc độ cũ
+
         m_playerController.MoveSpeed -= dashBoost;
         m_isDashing = false;
 
-        // 5. Tắt hiệu ứng Ghost
+
         if (m_dashCoroutine != null) StopCoroutine(m_dashCoroutine);
 
-        // (Tùy chọn) Chờ hồi chiêu nếu muốn
+    
          yield return new WaitForSeconds(dashCooldown);
         m_canDash = true;
     }
@@ -103,14 +103,14 @@ public class PlayerDash : MonoBehaviour
     {
         while (m_isDashing)
         {
-            // Đảm bảo bạn có class ObjectPoolManager hoạt động
+
             GameObject ghost = OBjectPoolManager.SpawnObject(m_ghostEffect, transform.position, Quaternion.identity);
 
-            // Sao chép Sprite hiện tại của nhân vật sang Ghost
+
             if (m_spriteRenderer != null && ghost.GetComponentInChildren<SpriteRenderer>() != null)
             {
                 ghost.GetComponentInChildren<SpriteRenderer>().sprite = m_spriteRenderer.sprite;
-                // Nếu ghost bị ngược hướng, chỉnh lại flipX ở đây nếu cần
+
                 ghost.GetComponentInChildren<SpriteRenderer>().flipX = m_spriteRenderer.flipX;
             }
 
