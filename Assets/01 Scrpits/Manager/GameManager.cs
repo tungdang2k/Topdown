@@ -72,12 +72,10 @@ public class GameManager : Singleton<GameManager>
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         m_playerSpawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawn").transform;
-        Debug.Log("Player Spawn Point Found at: " + m_playerSpawnPoint.position);
         RegisterPlayer(m_playerController.transform);
         RegisterPlayerHealth(m_playerController.GetComponent<HealthControler>());
 
         m_playerController.transform.position = m_playerSpawnPoint.position;
-        Debug.Log("Player Reset to Spawn Point" + m_playerController.transform.position);
     }
 
     public void RegisterPlayer(Transform player)

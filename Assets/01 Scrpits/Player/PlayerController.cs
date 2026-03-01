@@ -37,11 +37,7 @@ public class PlayerController : MonoBehaviour
 
      void Awake()
     {
-       
 
-        //GameManager.Instance.RegisterPlayer(transform);
-        //GameManager.Instance.RegisterPlayerHealth(GetComponent<HealthControler>());
-        //ActiveWeapon.Instance.RegisterPlayer(this);
         m_activeWeapon = GetComponentInChildren<ActiveWeapon>();
         
         m_rb = GetComponent<Rigidbody2D>();
@@ -88,15 +84,6 @@ public class PlayerController : MonoBehaviour
         m_actions.Player.Jump.started -= Dash;
 
         m_actions.Inventory.Keyboard.performed -= Inventory;
-
-    }
-    void Start()
-    {
-        Activeinventory inventory = FindFirstObjectByType<Activeinventory>();
-        if (inventory != null)
-        {
-            inventory.RegisterPlayer(this);
-        }
 
     }
 

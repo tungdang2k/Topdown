@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,13 +22,18 @@ public class Activeinventory : MonoBehaviour
     {
         PlayerController.OnInventorySlotSelected -= UpdateInventory;
     }
+
     private void Start()
     {
-        ToggleActiveHighlight(0);
+        PlayerController player = FindFirstObjectByType<PlayerController>();
+
+        if (player != null)
+        {
+            RegisterPlayer(player);
+        }
     }
 
-
-     public void UpdateInventory(int numValue)
+    public void UpdateInventory(int numValue)
     {
         int index = numValue - 1;
 
@@ -56,56 +62,29 @@ public class Activeinventory : MonoBehaviour
     public void RegisterPlayer(PlayerController player)
     {
         m_activeWeapon = player.GetComponentInChildren<ActiveWeapon>();
+        if (m_activeWeapon == null)
+        {
+            return;
+        }
 
-        ChangeActiveWeapon();
+        ToggleActiveHighlight(m_activeSlotIndexNum);
+       
     }
 
-    //private void ChangeActiveWeapon()
-    //{
-    //    if (m_activeWeapon == null)
-    //        return;
-
-    //    if (m_activeSlotIndexNum < 0 || m_activeSlotIndexNum >= transform.childCount)
-    //        return;
-
-    //    var slot = transform.GetChild(m_activeSlotIndexNum).GetComponentInChildren<IventorySlot>();
-
-    //    if (slot == null || slot.GetWeaponData() == null)
-    //    {
-    //        m_activeWeapon.WeaponNull();
-    //        return;
-    //    }
-
-    //    if (m_activeWeapon.CurrentActiveWeapon != null)
-    //    {
-    //        Destroy(m_activeWeapon.CurrentActiveWeapon.gameObject);
-    //    }
-
-    //    WeaponData data = slot.GetWeaponData();
-
-    //    GameObject newWeapon = Instantiate(
-    //        data.weaponPrefab,
-    //        m_activeWeapon.transform.position,
-    //        Quaternion.identity,
-    //        m_activeWeapon.transform
-    //    );
-    //    GunWeapon gunScript = newWeapon.GetComponent<GunWeapon>();
-
-    //    if (gunScript != null)
-    //    {
-
-    //        gunScript.InitializeGun(data);
-    //    }
-
-    //    m_activeWeapon.NewWeapon(newWeapon.GetComponent<MonoBehaviour>());
-    //}
     private void ChangeActiveWeapon()
     {
-        if (m_activeWeapon == null) return;
-        if (m_activeSlotIndexNum < 0 || m_activeSlotIndexNum >= transform.childCount) return;
+
+        if (m_activeWeapon == null) {
+            return;
+        }
+        if (m_activeSlotIndexNum < 0 || m_activeSlotIndexNum >= transform.childCount) {
+            return;
+        }
 
         Transform slotTf = transform.GetChild(m_activeSlotIndexNum);
-        if (slotTf == null) return;
+        if (slotTf == null) { 
+            return;
+        }
 
         IventorySlot slot = slotTf.GetComponentInChildren<IventorySlot>();
         if (slot == null || slot.GetWeaponData() == null)
@@ -115,19 +94,19 @@ public class Activeinventory : MonoBehaviour
         }
 
         WeaponData data = slot.GetWeaponData();
-
-
+        
         foreach (var w in spawnedWeapons.Values)
         {
             if (w != null)
                 w.gameObject.SetActive(false);
         }
 
-
         if (!spawnedWeapons.ContainsKey(data))
         {
+           
             GameObject obj = Instantiate(data.weaponPrefab, m_activeWeapon.transform);
-
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.localRotation = Quaternion.identity;
             MonoBehaviour weapon = obj.GetComponent<MonoBehaviour>();
             spawnedWeapons.Add(data, weapon);
 

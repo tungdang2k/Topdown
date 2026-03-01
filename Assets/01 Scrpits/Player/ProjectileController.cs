@@ -16,7 +16,6 @@ public class ProjectileController : MonoBehaviour
     private Rigidbody2D m_rigidbody2D;
     private bool m_hasReturned = false;
     private Coroutine lifeRoutine;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         
@@ -29,7 +28,7 @@ public class ProjectileController : MonoBehaviour
         m_hasReturned = false;
         if (m_trailRenderer != null)
         {
-            // Buộc làm sạch vệt cũ ngay lập tức
+            //  làm sạch vệt cũ 
             m_trailRenderer.Clear();
             m_trailRenderer.emitting = true;
         }
